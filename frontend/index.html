@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeekyAnts LLM Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">GeekyAnts LLM</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" onclick="showSection('home')">Home</a></li>
+                <li><a href="#llm" class="nav-link" onclick="showSection('llm')">LLM</a></li>
+                <li><a href="#rag" class="nav-link" onclick="showSection('rag')">RAG</a></li>
+                <li><a href="#agent" class="nav-link" onclick="showSection('agent')">Agent</a></li>
+                <li><a href="#auth" class="nav-link" onclick="showSection('auth')">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Auth Section -->
+        <section id="auth" class="section hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Login</h2>
+                    <form id="authForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" placeholder="admin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="secretpassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <div id="authStatus" class="auth-status"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <div class="hero">
+                <h1>Welcome to GeekyAnts LLM Showcase</h1>
+                <p>Explore cutting-edge LLM, RAG, and Agent technologies</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✍️</div>
+                        <h3>LLM Generation</h3>
+                        <p>Generate text using Anthropic's Claude 3.5 Sonnet with custom prompts</p>
+                        <button class="btn btn-small" onclick="showSection('llm')">Try It</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>RAG Pipeline</h3>
+                        <p>Upload PDFs and query them using Retrieval-Augmented Generation</p>
+                        <button class="btn btn-small" onclick="showSection('rag')">Try It</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>LangChain Agent</h3>
+                        <p>Chat with an intelligent agent powered by LangChain and tools</p>
+                        <button class="btn btn-small" onclick="showSection('agent')">Try It</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LLM Section -->
+        <section id="llm" class="section hidden">
+            <div class="section-header">
+                <h2>LLM Text Generation</h2>
+                <p>Generate text using Anthropic's Claude 3.5 Sonnet</p>
+            </div>
+            <div class="content-grid">
+                <div class="card">
+                    <h3>Configuration</h3>
+                    <form id="llmForm">
+                        <div class="form-group">
+                            <label for="systemPrompt">System Prompt</label>
+                            <textarea id="systemPrompt" placeholder="You are a helpful assistant." rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="userPrompt">User Prompt</label>
+                            <textarea id="userPrompt" placeholder="Ask something..." rows="4" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="temperature">Temperature</label>
+                                <input type="number" id="temperature" value="0.7" min="0" max="2" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="maxTokens">Max Tokens</label>
+                                <input type="number" id="maxTokens" value="500" min="1" max="2000">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Response</h3>
+                    <div id="llmResponse" class="response-box">
+                        <p class="text-muted">Response will appear here...</p>
+                    </div>
+                    <div id="llmStats" class="stats-box hidden">
+                        <div class="stat">
+                            <span class="stat-label">Prompt Tokens:</span>
+                            <span id="promptTokens" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Completion Tokens:</span>
+                            <span id="completionTokens" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Total Tokens:</span>
+                            <span id="totalTokens" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RAG Section -->
+        <section id="rag" class="section hidden">
+            <div class="section-header">
+                <h2>RAG Pipeline</h2>
+                <p>Upload PDFs and ask questions about them</p>
+            </div>
+            <div class="content-grid">
+                <div class="card">
+                    <h3>Upload PDF</h3>
+                    <div id="uploadArea" class="upload-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                        <div class="upload-icon">📤</div>
+                        <p>Drag and drop your PDF here or</p>
+                        <label class="upload-label">
+                            Click to browse
+                            <input type="file" id="pdfFile" accept=".pdf" onchange="handleFileSelect(event)" hidden>
+                        </label>
+                        <p class="text-small">Supported: PDF files only</p>
+                    </div>
+                    <div id="uploadStatus" class="status-message hidden"></div>
+                    <button id="uploadBtn" class="btn btn-primary btn-block hidden">Upload PDF</button>
+                </div>
+                <div class="card">
+                    <h3>Query Documents</h3>
+                    <div class="form-group">
+                        <label for="ragQuery">Ask a question</label>
+                        <textarea id="ragQuery" placeholder="What is this document about?" rows="4" required></textarea>
+                    </div>
+                    <button onclick="queryRAG()" class="btn btn-primary btn-block">Ask Question</button>
+                    <div id="ragResponse" class="response-box hidden">
+                        <p id="ragResponseText" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agent Section -->
+        <section id="agent" class="section hidden">
+            <div class="section-header">
+                <h2>LangChain Agent Chat</h2>
+                <p>Chat with an intelligent agent that can search and calculate</p>
+            </div>
+            <div class="chat-container">
+                <div class="chat-box" id="chatBox"></div>
+                <div class="chat-input-container">
+                    <textarea id="agentInput" placeholder="Ask me anything! I can search and calculate..." rows="2"></textarea>
+                    <button onclick="sendAgentMessage()" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 GeekyAnts LLM Showcase. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>
