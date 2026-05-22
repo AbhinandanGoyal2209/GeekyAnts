@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from pydantic import BaseModel
-from GeekyAnts.app.api.dependencies import verify_credentials
+from app.api.dependencies import verify_credentials
 
 router = APIRouter(prefix="/rag", tags=["RAG Pipeline"], dependencies=[Depends(verify_credentials)])
 
@@ -21,7 +21,7 @@ async def ingest_document(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Only PDF files are supported.")
     
     try:
-        from GeekyAnts.app.services.rag_service import rag_service
+        from app.services.rag_service import rag_service
         chunks_added = await rag_service.ingest_pdf(file)
         return {"message": f"Successfully ingested {file.filename}", "chunks_added": chunks_added}
     except ImportError as e:
@@ -35,7 +35,7 @@ async def query_documents(request: QueryRequest):
     Query the ingested documents using the RAG pipeline.
     """
     try:
-        from GeekyAnts.app.services.rag_service import rag_service
+        from app.services.rag_service import rag_service
         answer = rag_service.query(request.question)
         return QueryResponse(answer=answer)
     except ImportError as e:

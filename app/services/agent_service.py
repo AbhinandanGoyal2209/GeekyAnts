@@ -1,7 +1,7 @@
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage
 import numexpr as ne
-from GeekyAnts.app.core.config import settings
+from app.core.config import settings
 
 def calculate(expression: str) -> str:
     """Evaluate a mathematical expression using numexpr."""

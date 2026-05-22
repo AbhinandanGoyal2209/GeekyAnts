@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from GeekyAnts.app.api.dependencies import verify_credentials
+from app.api.dependencies import verify_credentials
 
 router = APIRouter(prefix="/agent", tags=["LangChain Agents"], dependencies=[Depends(verify_credentials)])
 
@@ -18,7 +18,7 @@ async def chat_with_agent(request: AgentRequest):
     It will autonomously decide which tool to use to answer the question.
     """
     try:
-        from GeekyAnts.app.services.agent_service import agent_service
+        from app.services.agent_service import agent_service
         result = agent_service.run_agent(request.question)
         return AgentResponse(answer=result["output"])
     except ImportError as e:

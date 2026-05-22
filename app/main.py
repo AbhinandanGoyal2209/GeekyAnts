@@ -1,10 +1,10 @@
-from GeekyAnts.app.api import agent, basic_llm
+from app.api import agent, basic_llm
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
-from GeekyAnts.app.api import rag
+from app.api import rag
 
 app = FastAPI(
     title="GeekyAnts LLM Showcase API",

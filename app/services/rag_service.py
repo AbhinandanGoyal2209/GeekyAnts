@@ -9,7 +9,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
-from GeekyAnts.app.core.config import settings
+from app.core.config import settings
 
 # Setup Data Directories
 DATA_DIR = os.path.join(os.getcwd(), "data")

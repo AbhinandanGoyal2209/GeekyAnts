@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: geekyants-api
+    runtime: python
+    pythonVersion: 3.11
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        scope: run
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PYTHON_ENV
+        value: production

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from GeekyAnts.app.api.dependencies import verify_credentials
-from GeekyAnts.app.core.config import settings
+from app.api.dependencies import verify_credentials
+from app.core.config import settings
 
 router = APIRouter(prefix="/llm", tags=["LLM Crash Course"], dependencies=[Depends(verify_credentials)])
 
