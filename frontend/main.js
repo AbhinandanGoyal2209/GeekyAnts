@@ -1,5 +1,5 @@
-// API Configuration
-const API_BASE_URL = 'http://localhost:8000/api';
+// API Configuration - Dynamic URL
+const API_BASE_URL = `${window.location.protocol}//${window.location.host}/api`;
 let authToken = localStorage.getItem('authToken') || null;
 let isLoggedIn = !!authToken;
 
