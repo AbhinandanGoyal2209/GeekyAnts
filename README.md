@@ -5,8 +5,11 @@ A modern, full-stack application demonstrating advanced Large Language Model (LL
 
 #Screenshots
 <img width="1887" height="900" alt="image" src="https://github.com/user-attachments/assets/9f50e8e7-9045-4424-96bb-05b9a4eab3af" />
+
 <img width="1627" height="808" alt="image" src="https://github.com/user-attachments/assets/345595af-cb5c-4f41-821d-cf6781e862e5" />
-<img width="1544" height="736" alt="image" src="https://github.com/user-attachments/assets/4e9c675c-e807-403a-bfba-eaf41af2600c" />
+
+<img width="1503" height="808" alt="image" src="https://github.com/user-attachments/assets/1f2fb16f-c10a-432e-8ff4-399360751e50" />
+
 <img width="501" height="569" alt="image" src="https://github.com/user-attachments/assets/bddddbb8-81c3-49b1-a60b-fc2097c98c1c" />
 
 ## 🎯 What is GeekyAnts?
